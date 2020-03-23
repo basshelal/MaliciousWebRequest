@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "Malicious Web Request Demo",
-  "short_name": "Malicious",
-  "description": "Malicious Web Request Demo",
+  "name": "No Facebook!",
+  "short_name": "No Facebook!",
+  "description": "Block all Facebook content, \uD83D\uDD95 you Mark Zuckerberg",
   "version": "1.1",
   "minimum_chrome_version": "38",
   "permissions": [
@@ -16,7 +16,10 @@
     "default_popup": "popup.html"
   },
   "icons": {
-
+    "16": "assets/logo-16.png",
+    "48": "assets/logo-48.png",
+    "128": "assets/logo-128.png",
+    "256": "assets/logo-256.png"
   },
   "content_scripts": [
     {
