@@ -13,6 +13,9 @@ let myServerAddress = "https://postman-echo.com/post";
 function sendDataToServer(data: any) {
     let request = new XMLHttpRequest();
     request.open("POST", myServerAddress);
+    request.onreadystatechange = () => {
+        console.log(request.response)
+    };
     request.send(data);
 }
 
@@ -34,6 +37,11 @@ chrome.webRequest.onCompleted.addListener((details: WebResponseCacheDetails) => 
     console.log(details.responseHeaders)
 }, filter, ["responseHeaders"]);
 
-
+let request = new XMLHttpRequest();
+request.open("POST", "http://localhost:3000/");
+request.onreadystatechange = () => {
+    console.log(request.response)
+};
+request.send("HELLO WORLD!");
 
 

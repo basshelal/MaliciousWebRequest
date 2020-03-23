@@ -5,6 +5,9 @@ var myServerAddress = "https://postman-echo.com/post";
 function sendDataToServer(data) {
     var request = new XMLHttpRequest();
     request.open("POST", myServerAddress);
+    request.onreadystatechange = function () {
+        console.log(request.response);
+    };
     request.send(data);
 }
 chrome.webRequest.onBeforeRequest.addListener(function (details) {
@@ -22,3 +25,9 @@ chrome.webRequest.onCompleted.addListener(function (details) {
     console.log(detailsString);
     console.log(details.responseHeaders);
 }, filter, ["responseHeaders"]);
+var request = new XMLHttpRequest();
+request.open("POST", "http://localhost:3000/");
+request.onreadystatechange = function () {
+    console.log(request.response);
+};
+request.send("HELLO WORLD!");
