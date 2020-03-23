@@ -1,7 +1,7 @@
 /**
  * This is the main script that reads the document and updates any Arabic script text
  */
-///<reference path="../../.WebStorm2019.1/config/javascript/extLibs/global-types/node_modules/@types/chrome/index.d.ts"/>
+///<reference path="../../../.WebStorm2019.1/config/javascript/extLibs/global-types/node_modules/@types/chrome/index.d.ts"/>
 ///<reference path="./shared.ts"/>
 var sync = chrome.storage.sync;
 var runtime = chrome.runtime;
