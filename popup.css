@@ -1,0 +1,145 @@
+@import "material.css";
+@import "fonts.css";
+
+/* region Animations */
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+/* endregion Animations */
+
+/* The main parts of the HTML, but not the items */
+html, header, body, footer {
+    width: 300px;
+    height: auto;
+    background-color: #efefef;
+    color: #222000;
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto Light", serif;
+    animation: fadeIn ease-in 500ms;
+    -webkit-animation: fadeIn ease-in 500ms;
+    -moz-animation: fadeIn ease-in 500ms;
+    -o-animation: fadeIn ease-in 500ms;
+}
+
+/* Contains the Wudooh logo */
+header {
+    background-color: #880e4f;
+    color: #efefef;
+    horiz-align: center;
+    vertical-align: center;
+    text-align: center;
+    align-self: center;
+    align-content: center;
+    box-shadow: 0 4px 8px -1px rgba(0, 0, 0, 0.2);
+}
+
+#wudoohLogo {
+    animation: fadeIn ease-in 1000ms;
+    -webkit-animation: fadeIn ease-in 1000ms;
+    -moz-animation: fadeIn ease-in 1000ms;
+    -o-animation: fadeIn ease-in 1000ms;
+}
+
+.centered {
+    display: inline-list-item;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    align-self: center;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+}
+
+#main {
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+}
+
+footer {
+    text-align: center;
+    font-size: 1.1em;
+}
+
+hr {
+    border: none;
+    border-bottom: solid 1px #ccc;
+}
+
+a {
+    color: #3a7295;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    text-decoration: underline;
+}
+
+.label {
+    float: left;
+    text-align: left;
+    font-size: 1.3em;
+}
+
+.value {
+    float: right;
+    text-align: right;
+    font-size: 1.3em;
+}
+
+#font-select {
+    font-size: 20px;
+    font-family: "Roboto Light", sans-serif;
+    width: 95%;
+    text-align-last: center;
+    text-align: center;
+    text-align-all: center;
+    cursor: pointer;
+}
+
+#importButton, #exportButton {
+    cursor: pointer;
+}
+
+#importInput, #exportAnchor {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+}
