@@ -9,6 +9,15 @@
 
 // region Extensions
 
+interface URL {
+    hostnameClean(): string;
+}
+
+URL.prototype.hostnameClean = function () {
+    if (this.hostname.substring(0, 4) === "www.") return this.hostname.substring(4);
+    else return this.hostname;
+};
+
 interface Array<T> {
     findFirst(predicate: (element: T, index: number) => boolean): T | null;
 

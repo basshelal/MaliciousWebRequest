@@ -10,6 +10,7 @@
     "tabs",
     "chrome://favicon/",
     "webRequest",
+    "webRequestBlocking",
     "<all_urls>"
   ],
   "browser_action": {
@@ -44,7 +45,7 @@
   },
   "web_accessible_resources": [
     "main.js",
-    "fonts/*"
+    "lists/*"
   ],
   "content_security_policy": "script-src 'self'; object-src 'self'; img-src chrome://favicon;"
 }

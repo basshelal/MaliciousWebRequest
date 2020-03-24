@@ -6,6 +6,12 @@
  * then adding the following line at the top of the file for support from WebStorm IDE.
  * ///<reference path="./shared.ts"/>
  */
+URL.prototype.hostnameClean = function () {
+    if (this.hostname.substring(0, 4) === "www.")
+        return this.hostname.substring(4);
+    else
+        return this.hostname;
+};
 /**
  * Finds the first element that matches the given {@param predicate} else returns null
  * You can use this as a way to check if the array contains an element that matches the given {@param predicate}, it

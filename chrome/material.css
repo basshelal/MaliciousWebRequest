@@ -70,15 +70,15 @@
 
 /* Checked */
 .material-switch > input:checked {
-    background-color: rgb(173, 20, 87);
+    background-color: rgb(55, 87, 148);
 }
 
 .material-switch > input:checked + span::before {
-    background-color: rgba(173, 20, 87, 0.6);
+    background-color: rgba(55, 87, 148, 0.6);
 }
 
 .material-switch > input:checked + span::after {
-    background-color: rgb(173, 20, 87);
+    background-color: rgb(55, 87, 148);
     transform: translateX(22px);
 }
 
@@ -95,7 +95,7 @@
 }
 
 .material-switch > input:active + span::before {
-    background-color: rgba(173, 20, 87, 0.6);
+    background-color: rgba(55, 87, 148, 0.6);
 }
 
 .material-switch > input:checked:active + span::before {
@@ -118,7 +118,7 @@
 }
 
 .material-switch > input:checked:disabled + span::before {
-    background-color: rgba(173, 20, 87, 0.6);
+    background-color: rgba(55, 87, 148, 0.6);
 }
 
 /* endregion Material Switch */
@@ -223,318 +223,3 @@
 }
 
 /* endregion Material Button*/
-
-/* region Material Select */
-
-/* Copied from https://codepen.io/pavelvaravko/pen/qjojOr */
-
-.select-text {
-    position: relative;
-    font-family: inherit;
-    background-color: transparent;
-    width: 250px;
-    padding: 4px 4px 4px 0;
-    border-radius: 0;
-    border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
-}
-
-/* Remove focus */
-.select-text:focus {
-    outline: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0);
-}
-
-/* Use custom arrow */
-.select .select-text {
-    appearance: none;
-    -webkit-appearance: none
-}
-
-.select:after {
-    position: relative;
-    bottom: 24px;
-    left: 40%;
-    /* Styling the down arrow */
-    width: 0;
-    height: 0;
-    padding: 0;
-    content: '';
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 6px solid rgba(0, 0, 0, 0.15);
-    pointer-events: none;
-}
-
-/* BOTTOM BARS ================================= */
-.select-bar {
-    align-content: center;
-    align-self: center;
-    position: relative;
-    display: block;
-    width: 300px;
-}
-
-.select-bar:before, .select-bar:after {
-    content: '';
-    height: 2px;
-    width: 0;
-    bottom: 1px;
-    position: absolute;
-    background: rgb(173, 20, 87);
-    transition: 0.3s ease all;
-}
-
-.select-bar:before {
-    left: 50%;
-}
-
-.select-bar:after {
-    right: 50%;
-}
-
-/* active state */
-.select-text:focus ~ .select-bar:before,
-.select-text:focus ~ .select-bar:after {
-    width: 45%;
-}
-
-/* endregion Material Select*/
-
-/* region Material Slider */
-
-.pure-material-slider {
-    display: inline-block;
-    width: 75%;
-    color: rgba(0, 0, 0, 0.87);
-    font-family: "Roboto Light", sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-}
-
-/* Input */
-.pure-material-slider > input {
-    -webkit-appearance: none;
-    position: relative;
-    top: 24px;
-    display: block;
-    margin: 0 0 -36px;
-    width: 100%;
-    height: 36px;
-    background-color: transparent;
-    cursor: pointer;
-}
-
-/* Without Span */
-.pure-material-slider > input:last-child {
-    position: static;
-    margin: 0;
-}
-
-/* Span */
-.pure-material-slider > span {
-    display: inline-block;
-    margin-bottom: 36px;
-}
-
-/* Focus */
-.pure-material-slider > input:focus {
-    outline: none;
-}
-
-/* Disabled */
-.pure-material-slider > input:disabled {
-    cursor: default;
-    opacity: 0.38;
-}
-
-.pure-material-slider > input:disabled + span {
-    color: rgba(0, 0, 0, 0.38);
-}
-
-/* Webkit | Track */
-.pure-material-slider > input::-webkit-slider-runnable-track {
-    margin: 17px 0;
-    border-radius: 1px;
-    width: 100%;
-    height: 2px;
-    background-color: rgba(173, 20, 87, 0.2);
-}
-
-/* Webkit | Thumb */
-.pure-material-slider > input::-webkit-slider-thumb {
-    appearance: none;
-    -webkit-appearance: none;
-    border: none;
-    border-radius: 50%;
-    height: 2px;
-    width: 2px;
-    background-color: rgb(173, 20, 87);
-    transform: scale(6, 6);
-    transition: box-shadow 0.2s;
-}
-
-.pure-material-slider > input:focus::-webkit-slider-thumb {
-    box-shadow: 0 0 0 2px;
-}
-
-.pure-material-slider:hover > input:focus::-webkit-slider-thumb {
-    box-shadow: 0 0 0 2px;
-}
-
-/* Webkit | Active */
-.pure-material-slider > input:active::-webkit-slider-thumb {
-    box-shadow: 0 0 0 2px !important;
-}
-
-/* Webkit | Disabled */
-.pure-material-slider > input:disabled::-webkit-slider-runnable-track {
-    background-color: rgba(0, 0, 0, 0.38);
-}
-
-.pure-material-slider > input:disabled::-webkit-slider-thumb {
-    background-color: rgb(0, 0, 0);
-    color: rgb(255, 255, 255); /* Safari */
-    box-shadow: 0 0 0 1px rgb(255, 255, 255) !important;
-    transform: scale(4, 4);
-}
-
-/* Moz | Track */
-.pure-material-slider > input::-moz-range-track {
-    margin: 17px 0;
-    border-radius: 1px;
-    width: 100%;
-    height: 2px;
-    background-color: rgba(33, 150, 243, 0.24);
-}
-
-/* Moz | Thumb */
-.pure-material-slider > input::-moz-range-thumb {
-    appearance: none;
-    -moz-appearance: none;
-    border: none;
-    border-radius: 50%;
-    height: 2px;
-    width: 2px;
-    background-color: rgb(33, 150, 243);
-    transform: scale(6, 6);
-    transition: box-shadow 0.2s;
-}
-
-/* Moz | Progress */
-.pure-material-slider > input::-moz-range-progress {
-    border-radius: 1px;
-    height: 2px;
-    background-color: rgb(33, 150, 243);
-}
-
-/* Moz | Hover, Focus */
-.pure-material-slider:hover > input:hover::-moz-range-thumb {
-    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.04);
-}
-
-.pure-material-slider > input:focus::-moz-range-thumb {
-    box-shadow: 0 0 0 2px rgba(33, 150, 243 0.12);
-}
-
-.pure-material-slider:hover > input:focus::-moz-range-thumb {
-    box-shadow: 0 0 0 2px rgba(33, 150, 243 0.16);
-}
-
-/* Moz | Active */
-.pure-material-slider > input:active::-moz-range-thumb {
-    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.24) !important;
-}
-
-/* Moz | Disabled */
-.pure-material-slider > input:disabled::-moz-range-track {
-    background-color: rgba(0, 0, 0, 0.38);
-}
-
-.pure-material-slider > input:disabled::-moz-range-progress {
-    background-color: rgba(0, 0, 0, 0.87);
-}
-
-.pure-material-slider > input:disabled::-moz-range-thumb {
-    background-color: rgb(0, 0, 0);
-    box-shadow: 0 0 0 1px rgb(255, 255, 255) !important;
-    transform: scale(4, 4);
-}
-
-.pure-material-slider > input::-moz-focus-outer {
-    border: none;
-}
-
-/* MS | Track */
-.pure-material-slider > input::-ms-track {
-    box-sizing: border-box;
-    margin: 17px 0;
-    border: none;
-    border-radius: 1px;
-    padding: 0 17px;
-    width: 100%;
-    height: 2px;
-    background-color: transparent;
-}
-
-.pure-material-slider > input::-ms-fill-lower {
-    border-radius: 1px;
-    height: 2px;
-    background-color: rgb(33, 150, 243);
-}
-
-/* MS | Progress */
-.pure-material-slider > input::-ms-fill-upper {
-    border-radius: 1px;
-    height: 2px;
-    background-color: rgba(33, 150, 243, 0.24);
-}
-
-/* MS | Thumb */
-.pure-material-slider > input::-ms-thumb {
-    appearance: none;
-    margin: 0 17px;
-    border: none;
-    border-radius: 50%;
-    height: 2px;
-    width: 2px;
-    background-color: rgb(33, 150, 243);
-    transform: scale(6, 6);
-    transition: box-shadow 0.2s;
-}
-
-/* MS | Hover, Focus */
-.pure-material-slider:hover > input::-ms-thumb {
-    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.04);
-}
-
-.pure-material-slider > input:focus::-ms-thumb {
-    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.12);
-}
-
-.pure-material-slider:hover > input:focus::-ms-thumb {
-    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.16);
-}
-
-/* MS | Active */
-.pure-material-slider > input:active::-ms-thumb {
-    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.24) !important;
-}
-
-/* MS | Disabled */
-.pure-material-slider > input:disabled::-ms-fill-lower {
-    background-color: rgba(0, 0, 0, 0.38);
-}
-
-.pure-material-slider > input:disabled::-ms-fill-upper {
-    background-color: rgba(0, 0, 0, 0.38);
-    opacity: 0.38;
-}
-
-.pure-material-slider > input:disabled::-ms-thumb {
-    background-color: rgb(0, 0, 0);
-    box-shadow: 0 0 0 1px rgb(255, 255, 255) !important;
-    transform: scale(4, 4);
-}
-
-/* endregion Material Slider */
