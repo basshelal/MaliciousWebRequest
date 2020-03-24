@@ -8,40 +8,37 @@ import RequestFilter = chrome.webRequest.RequestFilter;
 
 let filter: RequestFilter = {urls: ["<all_urls>"]};
 
-let myServerAddress = "https://postman-echo.com/post";
+let myServerAddress = "http://localhost:42069/";
+
+function now(): string {
+    return Date().toString();
+}
 
 function sendDataToServer(data: any) {
     let request = new XMLHttpRequest();
     request.open("POST", myServerAddress);
-    request.onreadystatechange = () => {
-        console.log(request.response)
-    };
-    request.send(data);
+    let form = new FormData();
+    form.set("data", JSON.stringify(data));
+    request.send(form);
+    console.log(form.get("data"));
 }
 
 chrome.webRequest.onBeforeRequest.addListener((details: WebRequestBodyDetails) => {
-    let detailsString = `${details.timeStamp}\n${details.method}\n${details.url}\n${details.initiator}\n\n`;
-    console.log(detailsString);
+    if (details.url !== myServerAddress) {
+        let detailsString = `${details.timeStamp}\n${details.method}\n${details.url}\n${details.initiator}\n\n`;
+    }
 }, filter, ["requestBody"]);
 
 chrome.webRequest.onSendHeaders.addListener((details: WebRequestHeaderDetails) => {
-    if (!!details.requestHeaders && details.requestHeaders.length != 0) {
-        console.log("Headers: ");
-        console.log(details.requestHeaders)
+    if (details.url != myServerAddress) {
+        if (!!details.requestHeaders && details.requestHeaders.length != 0) {
+        }
     }
 }, filter, ["requestHeaders"]);
 
 chrome.webRequest.onCompleted.addListener((details: WebResponseCacheDetails) => {
-    let detailsString = `${details.timeStamp}\n${details.statusCode}\n${details.url}\n\n`;
-    console.log(detailsString);
-    console.log(details.responseHeaders)
+    if (details.url !== myServerAddress) {
+        let detailsString = `${now()} to ${details.ip} is ${details.statusCode}`;
+        sendDataToServer(detailsString);
+    }
 }, filter, ["responseHeaders"]);
-
-let request = new XMLHttpRequest();
-request.open("POST", "http://localhost:3000/");
-request.onreadystatechange = () => {
-    console.log(request.response)
-};
-request.send("HELLO WORLD!");
-
-

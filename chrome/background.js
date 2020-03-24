@@ -1,33 +1,35 @@
 ///<reference path="../../../.WebStorm2019.1/config/javascript/extLibs/global-types/node_modules/@types/chrome/index.d.ts"/>
 ///<reference path="./shared.ts"/>
-var filter = { urls: ["<all_urls>"] };
-var myServerAddress = "https://postman-echo.com/post";
+var filter = {urls: ["<all_urls>"]};
+var myServerAddress = "http://localhost:42069/";
+
+function now() {
+    return Date().toString();
+}
+
 function sendDataToServer(data) {
     var request = new XMLHttpRequest();
     request.open("POST", myServerAddress);
-    request.onreadystatechange = function () {
-        console.log(request.response);
-    };
-    request.send(data);
+    var form = new FormData();
+    form.set("data", JSON.stringify(data));
+    request.send(form);
+    console.log(form.get("data"));
 }
+
 chrome.webRequest.onBeforeRequest.addListener(function (details) {
-    var detailsString = details.timeStamp + "\n" + details.method + "\n" + details.url + "\n" + details.initiator + "\n\n";
-    console.log(detailsString);
+    if (details.url !== myServerAddress) {
+        var detailsString = details.timeStamp + "\n" + details.method + "\n" + details.url + "\n" + details.initiator + "\n\n";
+    }
 }, filter, ["requestBody"]);
 chrome.webRequest.onSendHeaders.addListener(function (details) {
-    if (!!details.requestHeaders && details.requestHeaders.length != 0) {
-        console.log("Headers: ");
-        console.log(details.requestHeaders);
+    if (details.url != myServerAddress) {
+        if (!!details.requestHeaders && details.requestHeaders.length != 0) {
+        }
     }
 }, filter, ["requestHeaders"]);
 chrome.webRequest.onCompleted.addListener(function (details) {
-    var detailsString = details.timeStamp + "\n" + details.statusCode + "\n" + details.url + "\n\n";
-    console.log(detailsString);
-    console.log(details.responseHeaders);
+    if (details.url !== myServerAddress) {
+        var detailsString = now() + " to " + details.ip + " is " + details.statusCode;
+        sendDataToServer(detailsString);
+    }
 }, filter, ["responseHeaders"]);
-var request = new XMLHttpRequest();
-request.open("POST", "http://localhost:3000/");
-request.onreadystatechange = function () {
-    console.log(request.response);
-};
-request.send("HELLO WORLD!");

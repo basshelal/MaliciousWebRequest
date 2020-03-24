@@ -6,6 +6,8 @@ This is a small Web Extension (Chrome) that demonstrates the potential security 
 
 - [Malicious Web Request](#malicious-web-request)
   - [Installation](#installation)
+    - [Chrome Extension](#chrome-extension)
+    - [Node Server](#node-server)
   - [Video Demonstration](#video-demonstration)
   - [Details](#details)
   - [Thanks](#thanks)
@@ -13,7 +15,9 @@ This is a small Web Extension (Chrome) that demonstrates the potential security 
 
 ## Installation
 
-1. Clone this repository or download and extract the zip.
+### Chrome Extension
+
+1. Clone this repository.
 2. Launch Chrome and open the extensions page, you can do this by entering the URL `chrome://extensions`
 3. Turn on **Developer Mode** by toggling the switch in the top right corner of the page. [Read here for more if you're struggling.](https://developer.chrome.com/extensions/faq#faq-dev-01)
 4. [You are now a Chrome Extension Developer](https://i.redd.it/4ifd4hw4s9701.jpg) 😁
@@ -21,6 +25,14 @@ This is a small Web Extension (Chrome) that demonstrates the potential security 
 6. In the folder selection, go to the directory of this repository. Once inside, be sure to click (but not enter) the `chrome` directory, then select that folder.
 7. If everything went correctly, you should now see your unpacked extension called "*No Facebook!*" as if you downloaded and installed it from the Chrome Web Store. Toggle the switch to activate it.
 8. When done with the demonstration, remove the extension.
+
+### Node Server
+
+1. Clone this repository (skip if you've already done so).
+2. Install [node.js](https://nodejs.org/en/) if you do not have it installed. To check if you have it installed or if you installed it correctly, run `node -v` and `npm -v` on a command line.
+3. Navigate to this repository's directory then navigate to the `server` directory.
+4. From the `server` directory run `node bin/www` on a command line.
+5. In a browser, go to http://localhost:42069/, you should be greeted to an Express webpage. If so, the server is up an running and all web requests received will be shown on the command line.
 
 ## Video Demonstration
 
@@ -48,4 +60,4 @@ However, what else it may be secretly doing with the web traffic it can read is 
 
 ## Disclaimer
 
-This is just a demonstration, no actual data is gathered or sent anywhere. I also do not endorse nor condone detailed data gathering, trust me, you don't want to know what people do online 🤨.
+This is just a demonstration, no actual data is gathered or saved anywhere. The demonstration send request information from the browser to a server running on the same machine. I do not endorse nor condone unconsented data gathering, trust me, you don't want to know what people do online when no one is looking 🤨.
