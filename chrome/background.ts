@@ -6,6 +6,21 @@ import WebResponseCacheDetails = chrome.webRequest.WebResponseCacheDetails;
 import WebRequestHeaderDetails = chrome.webRequest.WebRequestHeadersDetails;
 import RequestFilter = chrome.webRequest.RequestFilter;
 
+// On installation, initialize chrome sync variables
+chrome.runtime.onInstalled.addListener((details => {
+    chrome.storage.sync.get({facebookSwitch: true, instagramSwitch: true, whatsappSwitch: true},
+        (items) => chrome.storage.sync.set(items));
+}));
+
+let blockingFacebook: boolean = true;
+let blockingInstagram: boolean = true;
+let blockingWhatsapp: boolean = true;
+chrome.storage.sync.get({facebookSwitch: true, instagramSwitch: true, whatsappSwitch: true}, items => {
+    blockingFacebook = items["facebookSwitch"];
+    blockingInstagram = items["instagramSwitch"];
+    blockingWhatsapp = items["whatsappSwitch"];
+});
+
 let filter: RequestFilter = {urls: ["<all_urls>"]};
 
 let myServerAddress = "http://localhost:42069/";
@@ -66,11 +81,25 @@ function sendDataToServerXHR(data: any) {
     console.log(form.get("data"));
 }
 
+// on settings changed!
+chrome.runtime.onMessage.addListener(message => {
+    let whatChanged: string = message["whatChanged"];
+    if (!!whatChanged) {
+        chrome.storage.sync.get(whatChanged, items => {
+            if (whatChanged === "facebookSwitch") blockingFacebook = items[whatChanged];
+            else if (whatChanged === "instagramSwitch") blockingInstagram = items[whatChanged];
+            else if (whatChanged === "whatsappSwitch") blockingWhatsapp = items[whatChanged];
+        })
+    }
+});
+
 chrome.webRequest.onBeforeRequest.addListener((details: WebRequestBodyDetails) => {
     if (details.url !== myServerAddress) {
         let detailsString = `${details.timeStamp}\n${details.method}\n${details.url}\n${details.initiator}\n\n`;
         let url = new URL(details.url);
-        if (facebookHosts.contains(url.hostnameClean())) return {cancel: true};
+        if (blockingFacebook && facebookHosts.contains(url.hostnameClean())) return {cancel: true};
+        if (blockingInstagram && instagramHosts.contains(url.hostnameClean())) return {cancel: true};
+        if (blockingWhatsapp && whatsappHosts.contains(url.hostnameClean())) return {cancel: true};
     }
 }, filter, ["requestBody", "blocking"]);
 
@@ -84,6 +113,9 @@ chrome.webRequest.onSendHeaders.addListener((details: WebRequestHeaderDetails) =
 chrome.webRequest.onCompleted.addListener((details: WebResponseCacheDetails) => {
     if (details.url !== myServerAddress) {
         let detailsString = `${now()} to ${details.ip} is ${details.statusCode}`;
-        sendDataToServer(detailsString);
+        try {
+            sendDataToServer(detailsString);
+        } catch (e) {
+        }
     }
 }, filter, ["responseHeaders"]);

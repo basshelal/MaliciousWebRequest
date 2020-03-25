@@ -1,29 +1,33 @@
 ///<reference path="../../../.WebStorm2019.1/config/javascript/extLibs/global-types/node_modules/@types/chrome/index.d.ts"/>
 ///<reference path="./shared.ts"/>
 
-
-const main = get<HTMLDivElement>("main");
-
 // Inputs
-const sizeSlider = get<HTMLInputElement>("size");
-const heightSlider = get<HTMLInputElement>("height");
-const onOffSwitch = get<HTMLInputElement>("onOffSwitch");
-const fontSelect = get<HTMLSelectElement>("font-select");
-const overrideSiteSwitch = get<HTMLInputElement>("overrideSettingsSwitch");
-const whiteListSwitch = get<HTMLInputElement>("whitelistSwitch");
+const facebookSwitch = get<HTMLInputElement>("facebookSwitch");
+const instagramSwitch = get<HTMLInputElement>("instagramSwitch");
+const whatsappSwitch = get<HTMLInputElement>("whatsappSwitch");
 
-// Labels
-const sizeValue = get("sizeValue");
-const heightValue = get("heightValue");
-const overrideSettingsValue = get("overrideSettingsLabel");
-const whitelistedValue = get("whitelistedLabel");
+function onSettingsChanged(key: string) {
+    chrome.runtime.sendMessage({whatChanged: key});
+}
 
-// Website Info
-const websiteText = get<HTMLHeadingElement>("website");
-const websiteIcon = get<HTMLImageElement>("websiteIcon");
+function initializeUI() {
+    chrome.storage.sync.get({facebookSwitch: true, instagramSwitch: true, whatsappSwitch: true}, (items) => {
+        facebookSwitch.checked = items["facebookSwitch"];
+        instagramSwitch.checked = items["instagramSwitch"];
+        whatsappSwitch.checked = items["whatsappSwitch"];
+    });
+    facebookSwitch.onclick = () => {
+        chrome.storage.sync.set({facebookSwitch: facebookSwitch.checked});
+        onSettingsChanged("facebookSwitch");
+    };
+    instagramSwitch.onclick = () => {
+        chrome.storage.sync.set({instagramSwitch: instagramSwitch.checked});
+        onSettingsChanged("instagramSwitch");
+    };
+    whatsappSwitch.onclick = () => {
+        chrome.storage.sync.set({whatsappSwitch: whatsappSwitch.checked});
+        onSettingsChanged("whatsappSwitch");
+    };
+}
 
-// Import / Export
-let exportButton = get<HTMLButtonElement>("exportButton");
-let exportAnchor = get<HTMLAnchorElement>("exportAnchor");
-let importButton = get<HTMLButtonElement>("importButton");
-let importInput = get<HTMLInputElement>("importInput");
+initializeUI();

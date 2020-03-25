@@ -1,23 +1,32 @@
 ///<reference path="../../../.WebStorm2019.1/config/javascript/extLibs/global-types/node_modules/@types/chrome/index.d.ts"/>
 ///<reference path="./shared.ts"/>
-var main = get("main");
 // Inputs
-var sizeSlider = get("size");
-var heightSlider = get("height");
-var onOffSwitch = get("onOffSwitch");
-var fontSelect = get("font-select");
-var overrideSiteSwitch = get("overrideSettingsSwitch");
-var whiteListSwitch = get("whitelistSwitch");
-// Labels
-var sizeValue = get("sizeValue");
-var heightValue = get("heightValue");
-var overrideSettingsValue = get("overrideSettingsLabel");
-var whitelistedValue = get("whitelistedLabel");
-// Website Info
-var websiteText = get("website");
-var websiteIcon = get("websiteIcon");
-// Import / Export
-var exportButton = get("exportButton");
-var exportAnchor = get("exportAnchor");
-var importButton = get("importButton");
-var importInput = get("importInput");
+var facebookSwitch = get("facebookSwitch");
+var instagramSwitch = get("instagramSwitch");
+var whatsappSwitch = get("whatsappSwitch");
+
+function onSettingsChanged(key) {
+    chrome.runtime.sendMessage({whatChanged: key});
+}
+
+function initializeUI() {
+    chrome.storage.sync.get({facebookSwitch: true, instagramSwitch: true, whatsappSwitch: true}, function (items) {
+        facebookSwitch.checked = items["facebookSwitch"];
+        instagramSwitch.checked = items["instagramSwitch"];
+        whatsappSwitch.checked = items["whatsappSwitch"];
+    });
+    facebookSwitch.onclick = function () {
+        chrome.storage.sync.set({facebookSwitch: facebookSwitch.checked});
+        onSettingsChanged("facebookSwitch");
+    };
+    instagramSwitch.onclick = function () {
+        chrome.storage.sync.set({instagramSwitch: instagramSwitch.checked});
+        onSettingsChanged("instagramSwitch");
+    };
+    whatsappSwitch.onclick = function () {
+        chrome.storage.sync.set({whatsappSwitch: whatsappSwitch.checked});
+        onSettingsChanged("whatsappSwitch");
+    };
+}
+
+initializeUI();

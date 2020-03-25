@@ -7,7 +7,6 @@
 
 <body>
 
-<!-- On off Switch -->
 <!-- Extension Logo -->
 <!-- CheckBox for Facebook -->
 <!-- CheckBox for Instagram -->
@@ -18,22 +17,39 @@
     <img alt="Wudooh Logo" id="logo" src="assets/logo-128.png">
 </header>
 
-<div class="centered">
-    <!-- On off Switch -->
-    <label class="material-switch">
-        <input id="onOffSwitch" type="checkbox">
-        <span></span>
-    </label>
-</div>
-
 <div id="main">
 
+    <div class="centered">
+        <h2>Blocking Facebook</h2>
+        <label class="material-switch">
+            <input id="facebookSwitch" type="checkbox">
+            <span></span>
+        </label>
+    </div>
+
+    <div class="centered">
+        <h2>Blocking Instagram</h2>
+        <label class="material-switch">
+            <input id="instagramSwitch" type="checkbox">
+            <span></span>
+        </label>
+    </div>
+
+    <div class="centered">
+        <h2>Blocking Whatsapp</h2>
+        <label class="material-switch">
+            <input id="whatsappSwitch" type="checkbox">
+            <span></span>
+        </label>
+    </div>
 
 </div>
 
 <br>
-<div class="centered" style="font-family: 'Noto Nastaliq Urdu', 'Roboto Light', sans-serif">
+<div class="centered" style="margin-bottom: 12px">
     By <a href="https://github.com/basshelal/MaliciousWebRequest" target="_blank">Bassam Helal</a>
+    <br> This is a demo application, read the <a href="https://github.com/basshelal/MaliciousWebRequest"
+                                                 target="_blank">GitHub repo</a> for more.
 </div>
 <script src="shared.js"></script>
 <script src="popup.js"></script>
