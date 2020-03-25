@@ -5,13 +5,17 @@ University CSCM28 (Security Vulnerabilities and Penetration Testing) Coursework.
 This is a small Web Extension (Chrome) that demonstrates the potential security and privacy vulnerabilities that come from using extensions that make use of the [`WebRequest` API](https://developer.chrome.com/extensions/webRequest).
 
 - [Malicious Web Request](#malicious-web-request)
+  - [Video Demonstration](#video-demonstration)
   - [Installation](#installation)
     - [Chrome Extension](#chrome-extension)
     - [Node Server](#node-server)
-  - [Video Demonstration](#video-demonstration)
   - [Details](#details)
   - [Thanks](#thanks)
   - [Disclaimer](#disclaimer)
+
+## Video Demonstration
+
+[YouTube Video with installation instructions and more details](https://youtu.be/C5Rg8G4OrTc)
 
 ## Installation
 
@@ -33,10 +37,6 @@ This is a small Web Extension (Chrome) that demonstrates the potential security 
 3. Navigate to this repository's directory then navigate to the `server` directory.
 4. From the `server` directory run `node bin/www` on a command line.
 5. In a browser, go to http://localhost:42069/, you should be greeted to an Express webpage. If so, the server is up an running and all web requests received will be shown on the command line.
-
-## Video Demonstration
-
-TODO YouTube link
 
 ## Details
 
@@ -60,4 +60,4 @@ However, what else it may be secretly doing with the web traffic it can read is 
 
 ## Disclaimer
 
-This is just a demonstration, no actual data is gathered or saved anywhere. The demonstration send request information from the browser to a server running on the same machine. I do not endorse nor condone unconsented data gathering, trust me, you don't want to know what people do online when no one is looking 🤨.
+This is just a demonstration, no actual data is gathered or saved anywhere. The demonstration sends request information from the browser to a server running on the same machine. I do not endorse nor condone unconsented data gathering, trust me, you don't want to know what people do online when no one is looking 🤨.
